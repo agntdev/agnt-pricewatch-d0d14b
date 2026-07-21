@@ -1,0 +1,20 @@
+[
+  {
+    "name": "/price",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Request current price for specified ticker or full watchlist"
+            }
+          }
+        ],
+        "send": {
+          "text": "/price"
+        }
+      }
+    ]
+  }
+]
