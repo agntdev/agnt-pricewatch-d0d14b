@@ -1,19 +1,17 @@
 [
   {
-    "name": "Add to Watchlist",
+    "name": "View watchlist shows empty state",
     "steps": [
       {
+        "send": { "callback": "watchlist:view" },
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Open watchlist management menu with quick coin buttons"
+              "text": "📋 Your watchlist is empty.\n\nTap a coin below to add it, or type a ticker."
             }
           }
-        ],
-        "send": {
-          "callback": "watchlist:add"
-        }
+        ]
       }
     ]
   }

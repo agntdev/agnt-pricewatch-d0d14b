@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Admin dashboard denied for non-owner",
+    "steps": [
+      {
+        "send": { "callback": "admin:dashboard" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "⛔ This feature is for the bot owner only."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

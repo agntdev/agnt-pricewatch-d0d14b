@@ -1,0 +1,155 @@
+[
+  {
+    "name": "Settings menu shows defaults",
+    "steps": [
+      {
+        "send": { "callback": "settings:menu" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "⚙️ Your settings:\n\n• Timezone: UTC\n• Quiet hours: 22:00–7:00\n• Morning summary: 08:00\n• Alert cooldown: 30m"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Quiet hours selection",
+    "steps": [
+      {
+        "send": { "callback": "settings:quiet" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🌙 Quiet hours suppress alerts during sleep.\n\nPick when alerts should stop and resume:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Set quiet hours confirms",
+    "steps": [
+      {
+        "send": { "callback": "settings:quiet:set:23:7" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Quiet hours set to 23:00–7:00."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Turn quiet hours off",
+    "steps": [
+      {
+        "send": { "callback": "settings:quiet:set:0:0" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Quiet hours set to Off."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Summary time selection",
+    "steps": [
+      {
+        "send": { "callback": "settings:summary" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📊 Set your preferred morning summary time (in your timezone)."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Set summary time confirms",
+    "steps": [
+      {
+        "send": { "callback": "settings:summary:set:09:00" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Morning summary set to 09:00."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cooldown selection",
+    "steps": [
+      {
+        "send": { "callback": "settings:cooldown" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "⏱ Alert cooldown prevents spam. Choose how long between alerts for the same coin."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Set cooldown confirms",
+    "steps": [
+      {
+        "send": { "callback": "settings:cooldown:set:60" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Cooldown set to 60 minutes."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Timezone prompt",
+    "steps": [
+      {
+        "send": { "callback": "settings:tz" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🌍 Type your timezone (e.g. UTC, EST, Europe/London, Asia/Tokyo)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

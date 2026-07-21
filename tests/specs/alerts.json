@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Alerts menu empty state",
+    "steps": [
+      {
+        "send": { "callback": "alerts:menu" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🔔 Add coins to your watchlist first, then set alerts."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Alerts menu with coins",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "alerts:menu" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🔔 Pick a coin to set an alert on."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Set alert type selection",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "alert:set:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🔔 Alert for BTC\n\nChoose alert type:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Price high alert prompts for value",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:ETH" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "alert:type:ETH:price_high" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📈 Enter the high price threshold for ETH (e.g. 100000)."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Percent alert prompts for value",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:TON" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "alert:type:TON:percent" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📊 Enter the percent change threshold for TON (e.g. 5 for 5%)."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Alert history empty state",
+    "steps": [
+      {
+        "send": { "callback": "alerts:history" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🔔 No alerts fired yet. Set up alerts on your watchlist coins to get notified."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
