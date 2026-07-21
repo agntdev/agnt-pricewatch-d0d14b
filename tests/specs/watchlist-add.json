@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Add to Watchlist",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Open watchlist management menu with quick coin buttons"
+            }
+          }
+        ],
+        "send": {
+          "callback": "watchlist:add"
+        }
+      }
+    ]
+  }
+]
