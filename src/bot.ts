@@ -1,15 +1,28 @@
 import { Composer } from "grammy";
 import { createBot, type BotContext } from "./toolkit/index.js";
 import type { StorageAdapter } from "grammy";
+import { resolveDomainStore, type DomainStore } from "./storage/store.js";
 
 // The per-chat session shape (ephemeral conversation state only). Extend as the
 // bot grows. Durable domain data must NOT live here — use the toolkit's
 // persistent storage (see AGENTS.md).
 export interface Session {
-  // example: step?: "awaiting_amount";
+  step?: string;
+  flowData?: Record<string, unknown>;
 }
 
 export type Ctx = BotContext<Session>;
+
+// Shared domain store — one per bot instance. Reset on each buildBot() call
+// so the test harness (fresh bot per spec) gets an isolated store.
+let _domainStore: DomainStore | undefined;
+export function getDomainStore(): DomainStore {
+  if (!_domainStore) _domainStore = resolveDomainStore();
+  return _domainStore;
+}
+export function resetDomainStore(): void {
+  _domainStore = undefined;
+}
 
 /**
  * BuildBotOptions lets a runtime-specific ENTRY POINT (never a feature handler)
@@ -41,6 +54,7 @@ export interface BuildBotOptions {
  * build-time manifest because Workers has no filesystem.
  */
 export async function buildBot(token: string, opts: BuildBotOptions = {}) {
+  resetDomainStore();
   const bot = createBot<Session>(token, {
     initial: () => ({}),
     storage: opts.storage,

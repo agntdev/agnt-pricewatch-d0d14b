@@ -1,0 +1,149 @@
+[
+  {
+    "name": "View empty watchlist",
+    "steps": [
+      {
+        "send": { "callback": "watchlist:view" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📋 Your watchlist is empty.\n\nTap a coin below to add it, or type a ticker."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Add BTC via quick coin button",
+    "steps": [
+      {
+        "send": { "callback": "watchlist:view" },
+        "expect": [
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "wl:add:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Added BTC to your watchlist."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Custom coin prompt",
+    "steps": [
+      {
+        "send": { "callback": "wl:custom" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "🔎 Type the ticker symbol or coin name (e.g. DOGE, AVAX, Polkadot)."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Manage coin shows options",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "wl:manage:BTC" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "BTC (BTC)\nNo alerts set."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Remove coin confirmation",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:ETH" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "wl:remove:ETH" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Remove ETH from your watchlist?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "wl:confirm-remove:ETH:yes" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "✅ Removed ETH from your watchlist."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Remove coin cancelled",
+    "steps": [
+      {
+        "send": { "callback": "wl:add:SOL" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "wl:remove:SOL" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "callback": "wl:confirm-remove:SOL:no" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Cancelled."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
